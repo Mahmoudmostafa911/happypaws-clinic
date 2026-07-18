@@ -27,15 +27,74 @@ The function that you write must return data as described below. There should be
 
 Where missing values are permitted, they should be in the default Python format.
 
-Column Name	Description
-pet_id	Unique identifier for each pet. There should not be any missing values.
-date	The date of the activity recorded or the date of the health visit, in date format. There should not be any missing values.
-activity_type	The type of activity, one of 'Walking', 'Playing', 'Resting' or for rows that relate to a health visit, the value 'Health'. Missing values are permitted.
-duration_minutes	The duration of the activity in minutes. For rows that relate to health visits, this should be 0. Missing values for other activities are permitted.
-issue	The health issue identified or check-up note. For rows that relate to activities, this should be a missing value. Missing values for health activities are permitted.
-resolution	The outcome or advice given for the issue. For rows that relate to activities, this should be a missing value. Missing values for health activities are permitted.
-owner_id	Unique identifier for the pet owner. All pets must have an owner.
-owner_age_group	The age group of the owner (e.g., 18-25, 26-35, etc.). Missing values are permitted.
-pet_type	The type of pet (e.g., Dog, Cat). Missing values are permitted.
-Static Analytical Dashboard (Matplotlib & Seaborn)
-This dashboard is built directly on the DataFrame returned by all_pet_data() — no extra "summary" dataset is created in between. Each chart below computes what it needs straight from that DataFrame with a plain one-line groupby / value_counts, the way you'd normally do it in a notebook.
+| Column | Description |
+|---|---|
+| `pet_id` | Unique pet identifier |
+| `date` | Date of the activity or health visit |
+| `activity_type` | `Walking`, `Playing`, `Resting`, or `Health` |
+| `duration_minutes` | Duration in minutes (`0` for health rows) |
+| `issue` | Health issue / check-up note (activity rows are blank) |
+| `resolution` | Outcome or advice given (activity rows are blank) |
+| `owner_id` | Unique owner identifier |
+| `owner_age_group` | Owner's age bracket, e.g. `26-35` |
+| `pet_type` | `Dog`, `Cat`, `Rabbit`, `Hamster`, `Fish` |
+
+
+```text
+HappyPaws_Project/
+│
+├── HappyPaws clinic.ipynb     # Data cleaning/merge + static Matplotlib/Seaborn dashboard
+├── all_data                   # Final merged dataset (CSV, no extension)
+├── app.py                     # Interactive Streamlit dashboard
+├── requirements.txt           # Python dependencies
+├── happypaws_dashboard.png    # Exported static dashboard image
+└── README.md                  # This file
+```
+
+
+Analysis of HappyPaws Clinic's pet activity and health data, split across two notebooks:
+
+1. **`HappyPaws DataCleaning.ipynb`** — cleans and merges the three raw source files
+   into a single dataset (`all_data`).
+2. **`HappyPaws Dashboard.ipynb`** — loads `all_data` and builds a static analytical
+   dashboard with Matplotlib and Seaborn.
+
+## Dataset
+
+Three raw files come in:
+
+- `pet_activities.csv` — daily pet activities (Walking, Playing, Resting) with duration
+- `pet_health.csv` — vet visits, with an issue and resolution
+- `users.csv` — owner information
+
+`HappyPaws DataCleaning.ipynb` cleans and merges these into `all_data`, one row per
+activity or health record:
+
+| Column | Description |
+|---|---|
+| `pet_id` | Unique pet identifier |
+| `date` | Date of the activity or health visit |
+| `activity_type` | `Walking`, `Playing`, `Resting`, or `Health` |
+| `duration_minutes` | Duration in minutes (`0` for health rows) |
+| `issue` | Health issue / check-up note (blank for activity rows) |
+| `resolution` | Outcome or advice given (blank for activity rows) |
+| `owner_id` | Unique owner identifier |
+| `owner_age_group` | Owner's age bracket, e.g. `26-35` |
+| `pet_type` | `Dog`, `Cat`, `Rabbit`, `Hamster`, `Fish` |
+
+Date range: **2022-04-01 → 2023-12-30**, covering 522 pets and 522 owners.
+
+## Dashboard
+
+`HappyPaws Dashboard.ipynb` builds a single 4×3 panel static dashboard
+(`happypaws_dashboard.png`) straight from `all_data`, no intermediate summary tables:
+
+- Records over time (monthly)
+- Number of pets by pet type
+- Activity vs. health record split
+- Activity records by type, and average duration by activity/pet type
+- Most common health issues, and health visits by pet type
+- Owners by age group
+- Activity-duration distribution
+- Records by day of week
+- Activity duration vs. health visits per pet (observed association only, not causation)
