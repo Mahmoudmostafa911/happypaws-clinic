@@ -98,3 +98,4 @@ Date range: **2022-04-01 → 2023-12-30**, covering 522 pets and 522 owners.
 - Activity-duration distribution
 - Records by day of week
 - Activity duration vs. health visits per pet (observed association only, not causation)
+<img width="2985" height="3241" alt="happypaws_dashboard" src="https://github.com/user-attachments/assets/0a362160-32af-4c9c-97f3-84baba9246a7" />
