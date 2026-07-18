@@ -20,7 +20,8 @@ All columns must accurately match the descriptions provided below, including nam
 Data
 The data that has been provided has the following structure
 
-![image](image.png)
+<img width="509" height="337" alt="image" src="https://github.com/user-attachments/assets/6487ec13-2607-435e-b6da-61431b4d29ee" />
+
 
 The function that you write must return data as described below. There should be a unique row for each activity/health visit.
 
